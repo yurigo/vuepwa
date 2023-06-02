@@ -5,7 +5,6 @@
 
   <main>
     <div class="viewer mt-24 w-full flex flex-col gap-10 items-center justify-center">
-      <canvas ref="canvas" height="500" width="1000" v-if="true" />
       <audio ref="player" controls src="/audio/1.mp3" class="w-full" />
     </div>
 
@@ -20,26 +19,9 @@ import { ref, onMounted } from 'vue'
 import Header from './components/Header.vue'
 // import BottomNavigation from './components/BottomNavigation.vue'
 import ReloadPrompt from './components/ReloadPrompt.vue'
-import { useAVBars } from 'vue-audio-visual'
 
-const barcolor = ref('deeppink')
 const something = ref('')
 const extra = ref('')
-
-const player = ref(null)
-const canvas = ref(null)
-
-useAVBars(player, canvas, {
-  src: '/audio/1.mp3',
-  canvHeight: 1000,
-  canvWidth: 500,
-  barColor: barcolor.value,
-  barWidth: 10,
-  barSpace: 10,
-  symmetric: false,
-  fftSize: 2048,
-  canvFillColor: 'transparent'
-})
 
 onMounted(() => {
   something.value = navigator.mediaSession
