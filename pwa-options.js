@@ -36,7 +36,8 @@ export default {
     ]
   },
   devOptions: {
-    // enabled: process.env.SW_DEV === 'true',
+    // eslint-disable-next-line no-undef
+    enabled: process.env.SW_DEV === 'true',
     // enabled: true,
     /* when using generateSW the PWA plugin will switch to classic */
     type: 'module',
