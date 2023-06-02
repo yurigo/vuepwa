@@ -37,7 +37,7 @@ export default {
   },
   devOptions: {
     // enabled: process.env.SW_DEV === 'true',
-    enabled: true,
+    // enabled: true,
     /* when using generateSW the PWA plugin will switch to classic */
     type: 'module',
     navigateFallback: 'index.html'
