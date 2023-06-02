@@ -1,30 +1,12 @@
-<script setup>
-import { ref } from 'vue'
-import Header from './components/Header.vue'
-// import BottomNavigation from './components/BottomNavigation.vue'
-import ReloadPrompt from './components/ReloadPrompt.vue'
-
-const barcolor = ref('deeppink')
-</script>
-
 <template>
   <Header />
 
   <ReloadPrompt />
 
   <main>
-    <div class="viewer mt-24 w-full flex flex-col-reverse gap-10 items-center justify-center">
-      <av-bars
-        :bar-width="10"
-        :bar-space="10"
-        :bar-color="barcolor"
-        canv-fill-color="transparent"
-        src="/audio/1.mp3"
-        canv-width="500"
-        canv-height="1000"
-        :symmetric="false"
-        :fft-size="2048"
-      ></av-bars>
+    <div class="viewer mt-24 w-full flex flex-col gap-10 items-center justify-center">
+      <canvas ref="canvas" height="500" width="1000" v-if="false" />
+      <audio ref="player" controls src="/audio/1.mp3" class="w-full" />
     </div>
 
     <!-- <footer>
@@ -32,6 +14,85 @@ const barcolor = ref('deeppink')
     </footer> -->
   </main>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import Header from './components/Header.vue'
+// import BottomNavigation from './components/BottomNavigation.vue'
+import ReloadPrompt from './components/ReloadPrompt.vue'
+import { useAVBars } from 'vue-audio-visual'
+
+const barcolor = ref('deeppink')
+const something = ref('')
+const extra = ref('')
+
+const player = ref(null)
+const canvas = ref(null)
+
+useAVBars(player, canvas, {
+  src: '/audio/1.mp3',
+  canvHeight: 1000,
+  canvWidth: 500,
+  barColor: barcolor.value,
+  barWidth: 10,
+  barSpace: 10,
+  symmetric: false,
+  fftSize: 2048,
+  canvFillColor: 'transparent'
+})
+
+onMounted(() => {
+  something.value = navigator.mediaSession
+
+  if ('mediaSession' in navigator) {
+    const player = document.querySelector('audio')
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: 'Elefants',
+      artist: 'Oques Grasses',
+      album: 'A tope amb la vida',
+      artwork: [
+        {
+          src: '/atopeamblavida-512x512.jpg',
+          sizes: '512x512',
+          type: 'image/jpeg'
+        },
+        {
+          src: '/atopeamblavida-192x192.jpg',
+          sizes: '192x192',
+          type: 'image/jpeg'
+        }
+      ]
+    })
+
+    extra.value = player
+
+    navigator.mediaSession.setActionHandler('play', () => player.play())
+    navigator.mediaSession.setActionHandler('pause', () => player.pause())
+    navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+      const skipTime = details.seekOffset || 1
+      player.currentTime = Math.max(player.currentTime - skipTime, 0)
+    })
+
+    navigator.mediaSession.setActionHandler('seekforward', (details) => {
+      const skipTime = details.seekOffset || 1
+      player.currentTime = Math.min(player.currentTime + skipTime, player.duration)
+    })
+
+    navigator.mediaSession.setActionHandler('seekto', (details) => {
+      if (details.fastSeek && 'fastSeek' in player) {
+        player.fastSeek(details.seekTime)
+        return
+      }
+      player.currentTime = details.seekTime
+    })
+
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      player.currentTime = 0
+    })
+  }
+})
+</script>
 
 <style>
 audio {
