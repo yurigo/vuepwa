@@ -1,10 +1,11 @@
 export default {
   mode: 'development',
   base: '/',
-  includeAssets: ['icon-32x32.png'],
+  includeAssets: ['icon-32x32.png', 'icon-192x192.png', 'icon-512x512.png', 'icon.png'],
   manifest: {
     name: 'PWAbuela',
     short_name: 'PWAbuela',
+    description: 'Un PWA para governarlos a todos',
     // display: 'fullscreen',
 
     // theme_color: 'black',
@@ -18,26 +19,25 @@ export default {
 
     icons: [
       {
-        src: 'icon-192x192.png', // <== don't add slash, for testing
+        src: 'pwa-192x192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: '/icon-512x512.png', // <== don't remove slash, for testing
+        src: 'pwa-512x512.png',
         sizes: '512x512',
         type: 'image/png'
       },
       {
-        src: 'icon-512x512.png', // <== don't add slash, for testing
+        src: 'apple-touch-icon.png',
         sizes: '512x512',
-        type: 'image/png',
-        purpose: 'any maskable'
+        type: 'image/png'
       }
     ]
   },
   devOptions: {
     // enabled: process.env.SW_DEV === 'true',
-    // enabled: true,
+    enabled: true,
     /* when using generateSW the PWA plugin will switch to classic */
     type: 'module',
     navigateFallback: 'index.html'

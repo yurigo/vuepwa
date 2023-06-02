@@ -54,5 +54,7 @@ module.exports = {
 [https://www.npmjs.com/package/vue-audio-visual](https://www.npmjs.com/package/vue-audio-visual)
 
 
+## splash
 
+[https://progressier.com/pwa-icons-and-ios-splash-screen-generator](https://progressier.com/pwa-icons-and-ios-splash-screen-generator)
 

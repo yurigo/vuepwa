@@ -2,7 +2,7 @@
   <header>
     <div class="navbar bg-base-100">
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl"> <img src="/icon-32x32.png" /></a>
+        <a class="btn btn-ghost normal-case text-xl"> <img src="/favicon-32x32.png" /></a>
       </div>
       <div class="flex-none">
         <button class="btn btn-square btn-ghost">
