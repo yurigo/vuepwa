@@ -5,7 +5,7 @@
 
   <main>
     <div class="viewer mt-24 w-full flex flex-col gap-10 items-center justify-center">
-      <canvas ref="canvas" height="500" width="1000" v-if="false" />
+      <canvas ref="canvas" height="500" width="1000" v-if="true" />
       <audio ref="player" controls src="/audio/1.mp3" class="w-full" />
     </div>
 
